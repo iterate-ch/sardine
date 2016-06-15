@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.github.lookfirst</groupId>
+    <groupId>ch.iterate.webdav</groupId>
     <artifactId>sardine</artifactId>
     <packaging>jar</packaging>
 	<version>5.8-SNAPSHOT</version>
-    <description>An easy to use webdav client for java</description>
-    <name>Sardine WEBDAV client</name>
-    <url>https://github.com/lookfirst/sardine</url>
+    <description>An easy to use WebDAV client for Java</description>
+    <name>Sardine WebDAV client</name>
+    <url>https://github.com/iterate-ch/sardine</url>
     <parent>
         <groupId>org.sonatype.oss</groupId>
         <artifactId>oss-parent</artifactId>
@@ -19,9 +19,9 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:lookfirst/sardine.git</connection>
-        <developerConnection>scm:git:git@github.com:lookfirst/sardine.git</developerConnection>
-        <url>git@github.com:lookfirst/sardine.git</url>
+        <connection>scm:git:git@github.com:iterate-ch/sardine.git</connection>
+        <developerConnection>scm:git:git@github.com:iterate-ch/sardine.git</developerConnection>
+        <url>git@github.com:iterate-ch/sardine.git</url>
     </scm>
     <developers>
         <developer>
