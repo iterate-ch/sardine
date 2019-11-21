@@ -7,6 +7,7 @@
 
 package com.github.sardine;
 
+import com.github.sardine.model.Activelock;
 import com.github.sardine.model.Creationdate;
 import com.github.sardine.model.Displayname;
 import com.github.sardine.model.Getcontentlanguage;
@@ -14,6 +15,8 @@ import com.github.sardine.model.Getcontentlength;
 import com.github.sardine.model.Getcontenttype;
 import com.github.sardine.model.Getetag;
 import com.github.sardine.model.Getlastmodified;
+import com.github.sardine.model.Lockdiscovery;
+import com.github.sardine.model.Locktoken;
 import com.github.sardine.model.Propstat;
 import com.github.sardine.model.Report;
 import com.github.sardine.model.Resourcetype;
@@ -85,6 +88,7 @@ public class DavResource
 		final String contentType;
 		final String etag;
 		final String displayName;
+		final String lockToken;
 		final List<QName> resourceTypes;
 		final String contentLanguage;
 		final Long contentLength;
@@ -92,7 +96,7 @@ public class DavResource
 		final Map<QName, String> customProps;
 
 		DavProperties(Date creation, Date modified, String contentType,
-					  Long contentLength, String etag, String displayName, List<QName> resourceTypes,
+					  Long contentLength, String etag, String displayName, String lockToken, List<QName> resourceTypes,
 					  String contentLanguage, List<QName> supportedReports, Map<QName, String> customProps)
 		{
 			this.creation = creation;
@@ -101,6 +105,7 @@ public class DavResource
 			this.contentLength = contentLength;
 			this.etag = etag;
 			this.displayName = displayName;
+			this.lockToken = lockToken;
 			this.resourceTypes = resourceTypes;
 			this.contentLanguage = contentLanguage;
 			this.supportedReports = supportedReports;
@@ -114,6 +119,7 @@ public class DavResource
 			this.contentLength = getContentLength(response);
 			this.etag = getEtag(response);
 			this.displayName = getDisplayName(response);
+			this.lockToken = getLockToken(response);
 			this.resourceTypes = getResourceTypes(response);
 			this.contentLanguage = getContentLanguage(response);
 			this.supportedReports = getSupportedReports(response);
@@ -128,13 +134,13 @@ public class DavResource
 	 * @throws java.net.URISyntaxException If parsing the href from the response element fails
 	 */
 	protected DavResource(String href, Date creation, Date modified, String contentType,
-						  Long contentLength, String etag, String displayName, List<QName> resourceTypes,
+						  Long contentLength, String etag, String displayName, String lockToken, List<QName> resourceTypes,
 						  String contentLanguage, List<QName> supportedReports, Map<QName, String> customProps)
 			throws URISyntaxException
 	{
 		this.href = new URI(href);
 		this.status = DEFAULT_STATUS_CODE;
-		this.props = new DavProperties(creation, modified, contentType, contentLength, etag, displayName,
+		this.props = new DavProperties(creation, modified, contentType, contentLength, etag, displayName, lockToken,
 				resourceTypes, contentLanguage, supportedReports, customProps);
 	}
 
@@ -196,6 +202,46 @@ public class DavResource
 				if ((glm != null) && (glm.getContent().size() == 1))
 				{
 					return glm.getContent().get(0);
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Retrieves locktocken from props. If it is not available return null.
+	 *
+	 * @param response The response complex type of the multistatus
+	 * @return Null if not found in props
+	 */
+	private String getLockToken(Response response)
+	{
+		List<Propstat> list = response.getPropstat();
+		if (list.isEmpty())
+		{
+			return null;
+		}
+		for (Propstat propstat : list)
+		{
+			if (propstat.getProp() != null) {
+				Lockdiscovery ld = propstat.getProp().getLockdiscovery();
+				if (ld != null)
+				{
+					if (ld.getActivelock().size() == 1)
+					{
+						final Activelock al = ld.getActivelock().get(0);
+						if (al != null)
+						{
+							final Locktoken lt = al.getLocktoken();
+							if (lt != null)
+							{
+								if (lt.getHref().size() == 1)
+								{
+									return lt.getHref().get(0);
+								}
+							}
+						}
+					}
 				}
 			}
 		}
@@ -548,6 +594,14 @@ public class DavResource
 	public String getDisplayName()
 	{
 		return this.props.displayName;
+	}
+
+	/**
+	 * @return Lock Token
+	 */
+	public String getLockToken()
+	{
+		return this.props.lockToken;
 	}
 
 	/**
