@@ -99,6 +99,10 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                    <encoding>UTF-8</encoding>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
