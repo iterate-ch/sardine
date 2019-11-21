@@ -3,7 +3,7 @@
     <groupId>ch.iterate.webdav</groupId>
     <artifactId>sardine</artifactId>
     <packaging>jar</packaging>
-    <version>5.12</version>
+    <version>5.13-SNAPSHOT</version>
     <description>An easy to use WebDAV client for Java</description>
     <name>Sardine WebDAV client</name>
     <url>https://github.com/iterate-ch/sardine</url>
