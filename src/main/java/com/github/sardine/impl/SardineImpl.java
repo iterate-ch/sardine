@@ -979,6 +979,10 @@ public class SardineImpl implements Sardine
 	public void delete(String url, Map<String, String> headers) throws IOException
 	{
 		HttpDelete delete = new HttpDelete(url);
+		for (Map.Entry<String, String> h : headers.entrySet())
+		{
+			delete.addHeader(new BasicHeader(h.getKey(), h.getValue()));
+		}
 		this.execute(delete, new VoidResponseHandler());
 	}
 
