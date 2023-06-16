@@ -14,11 +14,10 @@
         </license>
     </licenses>
     <scm>
-        <connection>scm:git:git@github.com:lookfirst/sardine.git</connection>
-        <developerConnection>scm:git:git@github.com:lookfirst/sardine.git</developerConnection>
-        <url>git@github.com:lookfirst/sardine.git</url>
-      <tag>HEAD</tag>
-  </scm>
+        <connection>scm:git:git@github.com:iterate-ch/sardine.git</connection>
+        <developerConnection>scm:git:git@github.com:iterate-ch/sardine.git</developerConnection>
+        <url>git@github.com:iterate-ch/sardine.git</url>
+    </scm>
     <developers>
         <developer>
             <name>Jon Stevens</name>
@@ -34,17 +33,24 @@
     </developers>
     <distributionManagement>
         <repository>
-            <id>sonatype-release</id>
-            <name>Nexus Release Repository</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <id>maven.cyberduck.io-release</id>
+            <url>s3://repo.maven.cyberduck.io/releases/</url>
+            <layout>default</layout>
         </repository>
         <snapshotRepository>
-            <id>sonatype-snapshot</id>
-            <name>Nexus Snapshot Repository</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <id>maven.cyberduck.io-snapshot</id>
+            <url>s3://repo.maven.cyberduck.io/snapshots/</url>
+            <layout>default</layout>
         </snapshotRepository>
     </distributionManagement>
     <build>
+        <extensions>
+            <extension>
+                <groupId>org.springframework.build</groupId>
+                <artifactId>aws-maven</artifactId>
+                <version>5.0.0.RELEASE</version>
+            </extension>
+        </extensions>
         <pluginManagement>
             <plugins>
                 <plugin>
