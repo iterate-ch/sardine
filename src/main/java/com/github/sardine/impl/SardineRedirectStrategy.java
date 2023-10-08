@@ -16,6 +16,8 @@
 
 package com.github.sardine.impl;
 
+import com.github.sardine.impl.methods.HttpPropFind;
+import com.github.sardine.impl.methods.HttpReport;
 import org.apache.http.Header;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpRequest;
@@ -25,9 +27,6 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.protocol.HttpContext;
-
-import com.github.sardine.impl.methods.HttpPropFind;
-import com.github.sardine.impl.methods.HttpReport;
 
 public class SardineRedirectStrategy extends DefaultRedirectStrategy {
 

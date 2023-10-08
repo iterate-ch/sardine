@@ -1,8 +1,8 @@
 package com.github.sardine;
 
-import javax.xml.namespace.QName;
-
 import com.github.sardine.model.Principal;
+
+import javax.xml.namespace.QName;
 
 public class DavPrincipal
 {
