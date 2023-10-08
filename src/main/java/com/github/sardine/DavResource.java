@@ -7,6 +7,7 @@
 
 package com.github.sardine;
 
+import com.github.sardine.model.Activelock;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -217,21 +218,29 @@ public class DavResource
 	 * @param response The response complex type of the multistatus
 	 * @return Null if not found in props
 	 */
-	private String getLockToken(Response response) {
+	private String getLockToken(Response response)
+	{
 		List<Propstat> list = response.getPropstat();
-		if (list.isEmpty()) {
+		if (list.isEmpty())
+		{
 			return null;
 		}
-		for (Propstat propstat : list) {
+		for (Propstat propstat : list)
+		{
 			if (propstat.getProp() != null) {
 				Lockdiscovery ld = propstat.getProp().getLockdiscovery();
-				if (ld != null) {
-					if (ld.getActivelock().size() == 1) {
+				if (ld != null)
+				{
+					if (ld.getActivelock().size() == 1)
+					{
 						final Activelock al = ld.getActivelock().get(0);
-						if (al != null) {
+						if (al != null)
+						{
 							final Locktoken lt = al.getLocktoken();
-							if (lt != null) {
-								if (lt.getHref().size() == 1) {
+							if (lt != null)
+							{
+								if (lt.getHref().size() == 1)
+								{
 									return lt.getHref().get(0);
 								}
 							}
@@ -594,7 +603,8 @@ public class DavResource
 	/**
 	 * @return Lock Token
 	 */
-	public String getLockToken() {
+	public String getLockToken()
+	{
 		return this.props.lockToken;
 	}
 
