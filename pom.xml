@@ -3,7 +3,7 @@
     <groupId>com.github.lookfirst</groupId>
     <artifactId>sardine</artifactId>
     <packaging>jar</packaging>
-    <version>5.13-SNAPSHOT</version>
+    <version>5.14-SNAPSHOT</version>
     <description>An easy to use WebDAV client for Java</description>
     <name>Sardine WebDAV client</name>
     <url>https://github.com/lookfirst/sardine</url>
@@ -53,6 +53,18 @@
         </extensions>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <version>3.3.0</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.codehaus.mojo</groupId>
+                            <artifactId>extra-enforcer-rules</artifactId>
+                            <version>1.7.0</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
@@ -121,6 +133,29 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>enforce-bytecode-version</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <enforceBytecodeVersion>
+                                    <maxJdkVersion>${maven.compiler.target}</maxJdkVersion>
+                                    <ignoredScopes>
+                                        <ignoreScope>test</ignoreScope>
+                                    </ignoredScopes>
+                                </enforceBytecodeVersion>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -260,8 +295,8 @@
         </profile>
     </profiles>
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <!-- Skip integration tests by default with failsafe plugin -->
         <skipITs>false</skipITs>
         <httpclient.version>4.5.14</httpclient.version>
