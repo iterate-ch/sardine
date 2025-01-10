@@ -3,7 +3,7 @@
     <groupId>ch.iterate.webdav</groupId>
     <artifactId>sardine</artifactId>
     <packaging>jar</packaging>
-    <version>5.14.1</version>
+    <version>5.14.2-SNAPSHOT</version>
     <description>An easy to use WebDAV client for Java</description>
     <name>Sardine WebDAV client</name>
     <url>https://github.com/lookfirst/sardine</url>
@@ -17,7 +17,7 @@
         <connection>scm:git:git@github.com:iterate-ch/sardine.git</connection>
         <developerConnection>scm:git:git@github.com:iterate-ch/sardine.git</developerConnection>
         <url>git@github.com:iterate-ch/sardine.git</url>
-      <tag>sardine-5.14.1</tag>
+      <tag>HEAD</tag>
   </scm>
     <developers>
         <developer>
